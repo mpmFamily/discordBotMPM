@@ -6,7 +6,11 @@ const bot = new Discord.Client();
 
 bot.login(config.token);
 
-bot.on('ready', () => { console.log('connected') });
+bot.on('ready', () => {
+    console.log('connected')
+    bot.user.setActivity('marcelo D2', { type: 'WATCHING' });
+});
+
 
 bot.on('message', msg => {
     let responde = {
@@ -16,10 +20,7 @@ bot.on('message', msg => {
     }
     if (msg.author.bot) { return;}
 
-    if (responde[msg.content]) {
+    if (responde[msg.content].toLowerCase) {
         msg.channel.send(responde[msg.content]);
     }
 });
-
-
-
