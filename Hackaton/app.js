@@ -8,19 +8,23 @@ bot.login(config.token);
 
 bot.on('ready', () => {
     console.log('connected')
-    bot.user.setActivity('marcelo D2', { type: 'WATCHING' });
+    bot.user.setActivity('sexo pra cego', { type: 'LISTENING' });
 });
 
 
 bot.on('message', msg => {
     let responde = {
-        "oi zilio": "bot ta on pae",
+        ".status": "bot ta on pae",
         "oi": "salve",
-        "salve":"salvado"
+        ".comandos": ".status  .comandos  .gay",
+        ".gay": `claro que eh o ${msg.author}`
     }
-    if (msg.author.bot) { return;}
 
-    if (responde[msg.content].toLowerCase) {
-        msg.channel.send(responde[msg.content]);
+    if (msg.author.bot) { return; }
+
+    if (responde[msg.content.toLowerCase()]) {
+        msg.channel.send(responde[msg.content.toLowerCase()]);
     }
+ 
 });
+
