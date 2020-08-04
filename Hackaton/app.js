@@ -25,6 +25,6 @@ bot.on('message', msg => {
     if (responde[msg.content.toLowerCase()]) {
         msg.channel.send(responde[msg.content.toLowerCase()]);
     }
- 
 });
+
 
