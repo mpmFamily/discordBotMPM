@@ -33,7 +33,7 @@
     <Content Include="config\config.json">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="req.js">
+    <Content Include="data.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
