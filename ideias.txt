@@ -1,0 +1,3 @@
+No  client.user.setActivity('fut contra o torneiras', { type: 'WATCHING' }) irá mostrar os times e o placar no momento atual
+
+Depois que funcionar, fornecer as tabelas em canvas, para facilitar o download da mesma
