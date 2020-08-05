@@ -12,6 +12,10 @@ client.on('message', message => {
 
     if (message.content.startsWith(config.prefix)){ 
 
+        if (message.author.bot) {
+            return;
+        }
+
         const args = message.content.split(" ")
         args.shift()  
         console.log(args)
