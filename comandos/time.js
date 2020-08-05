@@ -19,6 +19,8 @@ exports.run = (client, message, args) => {
         let pontosTable = $('.expand-trigger > th')
         let vitoriasTable = $('.expand-trigger > td')
 
+        console.log(vitoriasTable[15].children)
+
         const times = []
         let i = 0
           
@@ -27,12 +29,16 @@ exports.run = (client, message, args) => {
             const individualTeamPoints = pontosTable[i].children[0]
             const time = individualTeam.data
             const pontos = individualTeamPoints.data
-            const vitorias = vitoriasTable[2 + (i * 8)].children[0].data
+            const vitorias = vitoriasTable[2 + (i * 13)].children[0].data
+            const empates = vitoriasTable[3 + (i * 13)].children[0].data
+            const derrotas = vitoriasTable[4 + (i * 13)].children[0].data
             times.push({
               posicao: i + 1,
               nome: time,
               pontos: pontos,
-              vitorias: vitorias
+              vitorias: vitorias,
+              empates: empates,
+              derrotas: derrotas
 
             })
             i++
