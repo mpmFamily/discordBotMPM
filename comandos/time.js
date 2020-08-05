@@ -13,13 +13,11 @@ exports.run = (client, message, args) => {
     const url = (`https://www.cbf.com.br/futebol-brasileiro/competicoes/campeonato-brasileiro-serie-a/2019`)
     axios(url)
       .then(response => {
-        const html = response.data;
-        const $ = cheerio.load(html);
+        const html = response.data
+        const $ = cheerio.load(html)
         let timesTable = $('.expand-trigger > td > .hidden-xs') 
         let pontosTable = $('.expand-trigger > th')
         let vitoriasTable = $('.expand-trigger > td')
-
-        console.log(vitoriasTable[15].children)
 
         const times = []
         let i = 0
@@ -32,13 +30,15 @@ exports.run = (client, message, args) => {
             const vitorias = vitoriasTable[2 + (i * 13)].children[0].data
             const empates = vitoriasTable[3 + (i * 13)].children[0].data
             const derrotas = vitoriasTable[4 + (i * 13)].children[0].data
+            const saldo = vitoriasTable[7 + (i * 13)].children[0].data
             times.push({
               posicao: i + 1,
               nome: time,
               pontos: pontos,
               vitorias: vitorias,
               empates: empates,
-              derrotas: derrotas
+              derrotas: derrotas,
+              saldo: saldo
 
             })
             i++
@@ -57,8 +57,14 @@ exports.run = (client, message, args) => {
 
         const embed1 = new MessageEmbed()
           .setTitle(`Time escolhido: ${selectTeam.nome}`)
-          .setColor('#fffff')
-          .addField(`Posição na tabela: ${selectTeam.posicao}º`,`com ${selectTeam.pontos} pontos`, false)
+          .setColor('#ffffff')
+          .addField('Posição na tabela:', `${selectTeam.posicao}º`)
+          .addField(`Pontos:`, selectTeam.pontos)
+          .addField('Vitórias:', selectTeam.vitorias)
+          .addField('Empates:', selectTeam.empates)
+          .addField('Derrotas:', selectTeam.derrotas)
+          .addField('Saldo de Gols:', selectTeam.saldo)
+
 
         message.channel.send(embed1)
       })

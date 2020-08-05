@@ -7,14 +7,11 @@ client.on('ready', () => {
     client.user.setActivity('Brasileirão', {type: 'WATCHING'})
 })
 
-
 client.on('message', message => {
 
     if (message.content.startsWith(config.prefix)){ 
 
-        if (message.author.bot) {
-            return;
-        }
+        if (message.author.bot) return
 
         const args = message.content.split(" ")
         args.shift()  
@@ -25,7 +22,6 @@ client.on('message', message => {
         command.toLowerCase()
         console.log(command)
         
-      
         try {
             const commandHandler = require(`./comandos/${command}`)
             commandHandler.run(client, message, args) 
@@ -39,6 +35,5 @@ client.on('message', message => {
 client.on('disconnect', () => {
     client.destroy()
 })
-
 
 client.login(config.token)
