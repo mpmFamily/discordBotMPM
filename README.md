@@ -112,8 +112,6 @@ Mas por enquanto, apenas o token basta. Agora, faça o require do arquivo config
 
     const config = require('./config/config.json')
 
-Após isso, adicione a pasta config na sua .gitignore, desse jeito, seu token não será enviado para o git.
-
 **Ligando o bot**
 
 Se você fez tudo certo e convidou o seu bot para um servidor, agora passamos para ver ele online na lista do servidor.
@@ -128,4 +126,125 @@ Usaremos uma função do client que chamamos acima, que é a **client.login('tok
 
 Se tudo estiver certo, você verá seu bot online e já poderá a começar a trabalhar totalmente com as funções do discord.js
 
-## Continua... fazendo comandos
+## Adicionando comandos ao nosso bot
+A principal função que usamos do client em um bot é a **client.on()**
+Essa função é praticamente como um *eventListener* do javascript usado no navegador, onde esperamos uma certa ação do usuário pra executarmos uma função interna. Um dos principais eventos do client.on, por exemplo, é o *'message'*, que dispara nossas instruções quando o client recebe uma mensagem, que pode ser lida por ele.
+
+> Para ver todos os eventos disponíveis no client.on() acesse [esse repositório](https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584), muito bem feito por sinal, que lista e demonstra os eventos e os argumentos que elas trazem.
+
+**O evento 'message'**
+Por se tratar de um bot de chat, as mensagens, enviadas e trocadas tornam-se a principal ferramenta de controle, por isso, vamos começar olhando como ela funciona
+
+    client.on('message', (msg) => {
+	~~~~seu código acontece aqui~~~~
+	})
+	    
+ Basicamente, definimos em 'message', que o evento que procuramos nesse bloco de código é uma mensagem nova. Essa mensagem, quando recebida, é alocada na variável **'msg'** (ou qualquer variável que você definir), que está dentro dos parenteses da função de callback
+
+> "Uma função de callback é um função que é ativada quando outra função é ativada"
+> Basicamente uma função que recebe o parâmetro recebido pela função maior... confuso mas é isso 
+
+Se dermos um console.log(msg) ao receber uma mensagem (o que eu recomendo muito, pra destrinchar as possibilidades), da pra ver que o que foi alocado é um objeto cheio de valores sobre a mensagem enviada, como o autor **(msg.author)**, o id do canal enviado **(msg.channel)** ou o conteúdo da mensagem **(msg.content)**
+
+**Comando simples**
+Como exemplo inicial, podemos fazer um comando simples que responde no mesmo canal, uma mensagem de "oi"
+
+    client.on('message',(msg) => {
+	   if (msg.content === 'oi') msg.channel.send(`olá ${msg.author}`)
+	})
+Neste exemplo, usamos as 3 propriedades faladas acima, e usamos ainda a função send(), própria do discord.js, que envia uma mensagem definido por você no canal escolhido.
+
+Destrinchando o código para entender melhor, o `if (msg.content === 'oi')` busca se o corpo inteiro da mensagem é apenas 'oi', se fosse 'Oi' ou 'oi bot', por exemplo, o  bot não responderia.
+
+> Por isso, a prática de comandos estáticos assim não é a ideal
+
+Já `msg.channel.send` usa a propriedade msg.channel pra reconhecer onde foi enviada a mensagem de comando e envia a mensagem`(olá ${msg.author})`, onde a presença msg.author, que retorna o autor da mensagem inicial, faça com que o bot responda a mensagem marcando quem enviou o comando inicial
+
+**Organizando os comandos**
+
+Primeiramente, não queremos que o bot responda sem ser chamado, pra isso definimos um **prefix** antes das mensagens, pra separamos uma conversa normal de um comando para o bot, normalmente como *"!", "."* etc
+
+No nosso projeto, definiremos o prefix no arquivo config.json, como fizemos com o token, e como exemplifiquei também.
+
+Com o prefix em mãos, podemos começar a desenvolver um **commandHandler**, que irá dividir a mensagem recebida em *"comando"* e *"argumentos"*, e com isso, manteremos apenas um *listener 'message*' na index.js, mantendo o arquivo principal mais limpo e responsável apenas pelo redirecionamento.
+
+> Lembrando que essa é minha forma de desenvolver, fique a vontade de fazer do seu jeito se quiser
+
+    client.on('message', msg  => {
+	    
+	    // aqui filtramos apenas mensagens que começam (startsWith) com o prefix definido
+	    
+	    if (msg.content.startsWith(config.prefix)){
+    
+				// checagem para o bot não responder a si mesmo, encerrando a função caso o
+				// autor da mensagem seja um bot
+			    if (message.author.bot) return
+				
+		// criamos a constante args, que recebe o conteudo da mensagem separado em um array		   		    
+		
+		const  args = msg.content.split(" ")
+		
+		// e com a função shift(), tiramos o elemento 0 do array, que seria o comando
+		
+	    args.shift()
+    
+	    // aqui limpamos a mensagem por meio de um regex, pra entendermos qual é o comando
+	    // ex: !tabela 2019 --> command = tabela / args = [2019]
+	    
+	    const  commandSplited = msg.content.split(" ")[0]
+	    const  command = commandSplited.replace(/^./g,"")
+	    command.toLowerCase()
+		
+		// vou explicar melhor essa parte inferior na continuação do texto
+		
+	    try {
+		    const  commandHandler = require(`./comandos/${command}`)
+		    commandHandler.run(client, msg, args) 
+	    }
+	    catch {
+		    msg.channel.send('comando inválido')
+	    } 
+	    }
+    });
+
+O código mostrado acima é o command handler que eu uso nos 2 bots que tenho, e é relativamente simples ainda.
+Como estamos trabalhando com node.js, **é possível desenvolver os comandos de forma modular**, por isso, eu os coloco em uma pasta separada
+
+Nessa parte, try e catch possuem uma grande importância. A função desses dois é "tentar" executar uma função na parte **try{}**, que nesse caso seria requisitar o comando, e em caso de erro, ao invés de quebrar o código, a função executada é a **catch{}**
+
+Basicamente, meu código procura um arquivo na pasta comandos, por meio do *require()*, com o nome do comando que foi recebido no *listener*, e executa se encontrado, caso não, ele envia a mensagem de 'comando inválido'
+
+Com isso pronto, você pode criar uma pasta 'comandos' e pra cada comando, um arquivo.js. Por exemplo: o comando "*!oi*" teria o arquivo oi.js
+
+**Exportando comandos para a index.js**
+
+Apenas o command handler não irá garantir que seu código funcione, para cada comando separado, vc precisa exportá-los
+
+Basicamente, nosso comando simples de resposta oi.js teria o seguinte formato
+
+    // é necessário declarar esses dois novamente
+    
+    const  Discord = require("discord.js")
+    const  client = new  Discord.Client()
+    
+    // o .run pode ser qualquer nome, pois o arquivo vira um modulo, que pode ser executado
+    // nesse caso, executariamos escrevendo oi.run(), o que o command handler faz
+    
+    exports.run = (client, msg, args) => {
+    	msg.channel.send(`olá ${msg.author}`
+    }
+
+Pronto, agora é só criar outros comandos usando esse preset dentro da pasta de comandos :D
+
+**Como vou passar pra parte de node fazendo requisições, vou deixar o compilado de alguns links pra aprender discord.js individualmente**
+
+ - [Documentação da comunidade sobre discord.js](https://discordjs.guide/ "https://discordjs.guide/")
+ - [Lista de eventos](https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584) 
+ - [Guia de eventos](https://anidiots.guide/understanding/events-and-handlers)
+ - discord.js.org
+ 
+ **Estude Javascript e Node também, super importante**
+ - [Documentação JS](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+ - [Mini curso de JS no youtube](https://www.youtube.com/watch?v=i6Oi-YtXnAU)
+ - [Introdução ao Node](https://nodejs.dev/learn)
+ ## Continua... axios e cheerio
