@@ -112,6 +112,8 @@ Mas por enquanto, apenas o token basta. Agora, faça o require do arquivo config
 
     const config = require('./config/config.json')
 
+Após isso, adicione a pasta config na sua .gitignore, desse jeito, seu token não será enviado para o git.
+
 **Ligando o bot**
 
 Se você fez tudo certo e convidou o seu bot para um servidor, agora passamos para ver ele online na lista do servidor.
