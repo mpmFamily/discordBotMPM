@@ -31,8 +31,6 @@ exports.run = (msg, bot) => {
             msg.channel.send(embedTime)
         })
     }
-
-
     else if (msg.content.toLowerCase().startsWith(`!time ${ano[1]}`) || msg.content.toLowerCase().startsWith(`!time${ano[1]}`)) {
         axios.get(url + 2020).then(response => {
             const html = (response.data);

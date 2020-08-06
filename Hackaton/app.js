@@ -7,7 +7,7 @@ const bot = new Discord.Client();
 const individual = require('./individual.js')
 const prefix = "!"
 let ano = [2019, 2020,2018];
-let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulo', 'internacional', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'botafogo', 'ceara', 'cruzeiro', 'csa', 'chapecoense', 'avai']
+let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulo', 'inter', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'botafogo', 'ceara', 'cruzeiro', 'csa', 'chapecoense', 'avai', 'torneiras', 'athletico paranaense', 'tricolor', 'curintia','atletico mineiro','chapeco','mengao']
 
 
 bot.login(config.token);
@@ -49,10 +49,15 @@ bot.on('message', msg => {
         times.run(msg, bot);
     }
 
-
-
-
-    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[0]}`)) {
+    for (let i = 0; i <= 27; i++) {
+        if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[i]}`)) {
+            individual.run(msg, bot)
+        }
+    }
+/*
+          JEITO MAIS DIFICIL E COMPLCIADO 
+  
+    if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[0]}`)) {
         individual.run(msg, bot)
     }
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[1]}`)) {
@@ -111,14 +116,11 @@ bot.on('message', msg => {
     }
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[19]}`)) {
         individual.run(msg, bot)
-    }
+    }*/
 
-    else if(msg.content.startsWith(`${config.prefix}time`,)) {
-        msg.channel.send('esse comando nao existe segundo anotacoes em meu casco')
-    }
 
 
     if (responde[msg.content.toLowerCase()]) {
         msg.channel.send(responde[msg.content.toLowerCase()]);
     }
-});
+    })

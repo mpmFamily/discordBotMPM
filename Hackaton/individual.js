@@ -5,11 +5,11 @@ const cheerio = require('cheerio');
 const { MessageEmbed } = require('discord.js');
 const bot = new Discord.Client();
 const url = 'https://www.cbf.com.br/futebol-brasileiro/competicoes/campeonato-brasileiro-serie-a/'
-let nomes = ['flamengo', 'santos', 'palmeiras','gremio','athletico','sao paulo','internacional','corinthians','fortaleza','goias','bahia','vasco','atletico','fluminense','botafogo','ceara','cruzeiro','csa','chapecoense','avai']
+let nomes = ['flamengo', 'santos', 'palmeiras','gremio','athletico','sao paulo','inter','corinthians','fortaleza','goias','bahia','vasco','atletico','fluminense','botafogo','ceara','cruzeiro','csa','chapecoense','avai']
 
 exports.run = (msg, bot) => {
    
-     if (msg.content.toLowerCase().startsWith(`!time ${nomes[0]}`)) {
+    if (msg.content.toLowerCase().startsWith(`!time ${nomes[0]}`) || msg.content.toLowerCase().startsWith('!time mengao')) {
         axios.get(url + 2019).then(response => {
             const html = (response.data);
             const $ = cheerio.load(html);
@@ -17,16 +17,16 @@ exports.run = (msg, bot) => {
             let pontos = $('.expand-trigger > th ')
             let partidas = $('.expand-trigger > td ')
 
-            
+
             embedTime.setTitle('Flamengo - RJ (2019)')
             embedTime.setThumbnail('https://upload.wikimedia.org/wikipedia/commons/9/93/Flamengo-RJ_%28BRA%29.png')
             embedTime.addField(pontos[0].children[0].data, 'pontos totais')
             embedTime.addField(partidas[2].children[0].data, 'vitorias')
             embedTime.addField(partidas[1].children[0].data, 'partidas jogadas')
-            embedTime.addField(partidas[7].children[0].data,'saldo de gols')
+            embedTime.addField(partidas[7].children[0].data, 'saldo de gols')
             embedTime.setColor('#DC143C')
             msg.channel.send(embedTime)
-            
+
         })
     }
     else if (msg.content.toLowerCase().startsWith(`!time ${nomes[1]}`)) {
@@ -36,7 +36,7 @@ exports.run = (msg, bot) => {
             const embedTime = new MessageEmbed();
             let pontos = $('.expand-trigger > th ')
             let partidas = $('.expand-trigger > td ')
-           
+
 
             embedTime.setTitle('Santos - SP (2019)')
             embedTime.setThumbnail('https://pbs.twimg.com/profile_images/1201694733376118786/d96e39ad_400x400.jpg')
@@ -74,7 +74,7 @@ exports.run = (msg, bot) => {
             const embedTime = new MessageEmbed();
             let pontos = $('.expand-trigger > th ')
             let partidas = $('.expand-trigger > td ')
-           
+
 
 
             embedTime.setTitle('Gremio - RS (2019)')
@@ -127,7 +127,7 @@ exports.run = (msg, bot) => {
             msg.channel.send(embedTime)
         })
     }
-    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[6]}`) || msg.content.toLowerCase().startsWith(`!time inter`)) {
+    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[6]}`)) {
         axios.get(url + 2019).then(response => {
             const html = (response.data);
             const $ = cheerio.load(html);
@@ -145,6 +145,7 @@ exports.run = (msg, bot) => {
             embedTime.addField(partidas[88].children[0].data, 'saldo de gols')
             embedTime.setColor('#d41717')
             msg.channel.send(embedTime)
+            
         })
     }
     else if (msg.content.toLowerCase().startsWith(`!time ${nomes[7]}`) || msg.content.toLowerCase().startsWith(`!time curintia`)) {
