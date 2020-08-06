@@ -6,9 +6,8 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const individual = require('./individual.js')
 const prefix = "!"
-let ano = [2019, 2020];
-let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulos', 'internacional', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'bota fogo', 'ceara', 'cruzeiro', 'csa', 'chapecoense', 'avai']
-let aleatorio = Math.random();
+let ano = [2019, 2020,2018];
+let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulo', 'internacional', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'botafogo', 'ceara', 'cruzeiro', 'csa', 'chapecoense', 'avai']
 
 
 bot.login(config.token);
@@ -20,19 +19,25 @@ bot.on('ready', () => {
 
 bot.on('message', msg => {
     let responde = {
-        "!bot": "to on amigao, use >> !comandos << para mais informacoes",
-        "oi": "salve",
-        "!comandos": "!pinto\n!gay\n!bot\n",
-        "!help":"aqui nois usa !comandos ok",
+        "!bot": "to on amigao\n use >> !comandos << para mais informacoes",
+        "oi": "oi tudo bem?",
+        "tudo": 'ngm te pergunto',
+        "to bem": "ngm te pergunto",
+        "tudo bem": "ngm te pergunto",
+        "voce pergunto": "a eh vredade",
+        "vc pergunto":"a eh vredade",
+        "!comandos": "!time ano\n!time seu time\n!gay\n",
+        "!help": "!time ano\n!time seu time\n!gay\n",
+        "!ajuda": "!time ano\n!time seu time\n!gay\n",
         "!gay": `claro que eh o ${msg.author}`,
         "salve": "salvado pae"
     }
     if (msg.author.bot) { return; }
 
     if (msg.content.toLowerCase().startsWith('!pinto')) {
-        msg.channel.send(`seu pinto tem ${aleatorio} cm`)
+        msg.channel.send(`seu pinto tem alguns cm`)
+        msg.channel.send('comando quebro to triste')
     }
-
 
     if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${ano[0]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[0]}`)) {
         times.run(msg, bot)
@@ -40,6 +45,12 @@ bot.on('message', msg => {
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${ano[1]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[1]}`)) {
         times.run(msg, bot)
     }
+    else if (msg.content.toLowerCase().startsWith(`!time ${ano[2]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[2]}`)) {
+        times.run(msg, bot);
+    }
+
+
+
 
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[0]}`)) {
         individual.run(msg, bot)
@@ -47,15 +58,63 @@ bot.on('message', msg => {
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[1]}`)) {
         individual.run(msg, bot)
     }
-    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[2]}`)) {
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[2]}`) || msg.content.toLowerCase().startsWith(`!time torneiras`)) {
         individual.run(msg, bot)
     }
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[3]}`)) {
         individual.run(msg, bot)
     }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[4]}`) || msg.content.toLowerCase().startsWith(`!time athletico paranaense`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[5]}`) || msg.content.toLowerCase().startsWith(`!time tricolor`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[6]}`) || msg.content.toLowerCase().startsWith(`!time inter`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[7]}`) || msg.content.toLowerCase().startsWith(`!time curintia`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[8]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[9]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[10]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[11]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[12]}`) || msg.content.toLowerCase().startsWith(`!time atletico mineiro`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[13]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[14]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[15]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[16]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[17]}`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[18]}`) || msg.content.toLowerCase().startsWith(`!time chapeco`)) {
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[19]}`)) {
+        individual.run(msg, bot)
+    }
 
-    else if (msg.content.startsWith(`${config.prefix}time`,)) {
-        msg.channel.send('ainda nao esta disponivel, volte em breve')
+    else if(msg.content.startsWith(`${config.prefix}time`,)) {
+        msg.channel.send('esse comando nao existe segundo anotacoes em meu casco')
     }
 
 
@@ -63,5 +122,3 @@ bot.on('message', msg => {
         msg.channel.send(responde[msg.content.toLowerCase()]);
     }
 });
-
-

@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 const { MessageEmbed } = require('discord.js');
 const bot = new Discord.Client();
 const url = 'https://www.cbf.com.br/futebol-brasileiro/competicoes/campeonato-brasileiro-serie-a/'
-let ano = [2019,2020,2018,2017]
+let ano = [2019,2020,2018]
 let nomesTimes = [];
 let nomesTimesVin = [];
 
@@ -29,7 +29,6 @@ exports.run = (msg, bot) => {
 
             embedTime.setColor('#DC143C');
             msg.channel.send(embedTime)
-            console.log(embedTime)
         })
     }
 
@@ -47,13 +46,34 @@ exports.run = (msg, bot) => {
                 nomesTimesVin.push({ nomes: time })
             }
             embedTimeVin.setTitle('Times brasileirao 2020')
+            embedTimeVin.setDescription('sem posicao, organizacao alfabetica')
             for (let i = 0; i <= 19; i++) {
-                embedTimeVin.addField(nomesTimesVin[i].nomes, `${i + 1} posicao`)
+                embedTimeVin.addField(nomesTimesVin[i].nomes, '_______________')
             }
 
             embedTimeVin.setColor('#8B008B');
             msg.channel.send(embedTimeVin)
-            console.log(embedTimeVin)
+        })
+    }
+    else if (msg.content.toLowerCase().startsWith(`!time ${ano[2]}`) || msg.content.toLowerCase().startsWith(`!time${ano[2]}`)) {
+        axios.get(url + 2018).then(response => {
+            const html = (response.data);
+            const $ = cheerio.load(html);
+            const embedTime = new MessageEmbed();
+            let timesTable = $('.expand-trigger > td > .hidden-xs ')
+
+            for (let i = 0; i <= 19; i++) {
+                const individualTeam = timesTable[i].children[0]
+                const time = individualTeam.data
+                nomesTimes.push({ nomes: time })
+            }
+            embedTime.setTitle('Times brasileirao 2018')
+            for (let i = 0; i <= 19; i++) {
+                embedTime.addField(nomesTimes[i].nomes, `${i + 1} posicao`)
+            }
+
+            embedTime.setColor('#000000');
+            msg.channel.send(embedTime)
         })
     }
 }
