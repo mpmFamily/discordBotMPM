@@ -247,4 +247,53 @@ Pronto, agora é só criar outros comandos usando esse preset dentro da pasta de
  - [Documentação JS](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
  - [Mini curso de JS no youtube](https://www.youtube.com/watch?v=i6Oi-YtXnAU)
  - [Introdução ao Node](https://nodejs.dev/learn)
- ## Continua... axios e cheerio
+ ## Fazendo requisições com node.js
+Existem diversos pacotes de node.js que trabalham com requisições http, e nesse projeto, usaremos um deles que é o **Axios** 
+Para instalar:
+
+    npm install axios --save
+Lembrando que estamos no projeto do  bot do brasileirão, faremos um novo arquivo na pasta de comandos 
+
+> Se você não está programando no formato modular, faça tudo na index.js
+
+Nesse caso, irei criar um novo comando chamado *requisicao.js* e usar o require para termos acesso as funções do Axios no nosso arquivo.
+
+    const  Discord = require("discord.js")
+    const  client = new  Discord.Client()
+    const axios = require('axios')
+    
+    exports.run = (client, msg, args) => {
+    	
+    }
+Para os testes de funcionamento do Axios, usaremos [este site](https://reqres.in) para fazer as requisições
+
+Explicando rapidamente o que faremos, basicamente usaremos uma ferramenta para ter acesso a informações de alguma página da internet, que nos retornarão um documento JSON com as informações requisitadas.
+O uso de API's são baseadas nisso, e é o que usaremos para carregar toda a página do site onde faremos web scraping.
+
+> Quando você digita seu CEP e o site reconhece suas informações, ele está fazendo uma requisição HTTP para uma API de CEP (mostrarei como funciona)
+
+No primeiro exemplo, faremos uma requisição simples usando o site que mandei acima. O objetivo é mostrar no console uma lista em forma de objeto que esse site nos fornece, usando o método **"get"** do axios
+
+    exports.run = (client, msg, args) => {
+	    axios.get('https://reqres.in/api/users?page=2')
+	    .then(response  => {
+		    console.log(response.data)
+	    })  	
+    }
+
+> Como adendo, usar uma função .catch() depois da .then é extremamente recomendada para evitar problemas com erros em requisição
+
+		  
+No exemplo usei a primeira requisição disponível no site, usando a função axios.get na url desejada, guardando a resposta da requisição como 'response' e por final mostrando as informações no console.
+
+Desta forma, no console veremos vários objetos com informações fictícias de algumas pessoas, mas se colocassemos apenas `console.log(response)` veriamos várias informações sobre a requisição, como o status, headers etc.
+
+Pronto, você já fez uma requisição http :D
+Outras ferramentas node http que você pode estudar se quiser:
+
+ - [Request](https://www.npmjs.com/package/request)
+ - [SuperAgent](https://github.com/visionmedia/superagent)
+ - [Fetch](https://github.com/visionmedia/superagent)
+ 
+ Todos esses são pacotes que facilitam requisições Ajax do javascript padrão, então, se quiser saber como funciona do jeito oficial, estude [Ajax](https://developer.mozilla.org/pt-BR/docs/Web/Guide/AJAX/Getting_Started)
+ ## Continua.. Cheerio fazendo web scraping
