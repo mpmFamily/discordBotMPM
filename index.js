@@ -11,7 +11,7 @@ const client = new Discord.Client()
         if (ederson.content.startsWith(config.prefix)){
         if (ederson.author.bot) return
 
-        const args = ederson.content.split(" ")
+    const args = ederson.content.split(" ")
     args.shift()
 
 
