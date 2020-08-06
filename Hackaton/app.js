@@ -1,12 +1,13 @@
 'use strict';
 
+const times = require('./times.js')
 const config = require('./config/config.json')
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const data = require('./data.js')
+const individual = require('./individual.js')
 const prefix = "!"
 let ano = [2019, 2020];
-let nomes = ['flamengo', 'santos', 'palmeiras']
+let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulos', 'internacional', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'bota fogo', 'ceara', 'cruzeiro', 'csa', 'chapecoense', 'avai']
 let aleatorio = Math.random();
 
 
@@ -24,8 +25,7 @@ bot.on('message', msg => {
         "!comandos": "!pinto\n!gay\n!bot\n",
         "!help":"aqui nois usa !comandos ok",
         "!gay": `claro que eh o ${msg.author}`,
-        "salve": "salvado pae",
-       
+        "salve": "salvado pae"
     }
     if (msg.author.bot) { return; }
 
@@ -35,24 +35,27 @@ bot.on('message', msg => {
 
 
     if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${ano[0]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[0]}`)) {
-        data.run(msg, bot)
+        times.run(msg, bot)
     }
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${ano[1]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[1]}`)) {
-        data.run(msg, bot)
+        times.run(msg, bot)
     }
 
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[0]}`)) {
-        data.run(msg, bot)
+        individual.run(msg, bot)
     }
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[1]}`)) {
-        data.run(msg, bot)
+        individual.run(msg, bot)
     }
     else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[2]}`)) {
-        data.run(msg, bot)
+        individual.run(msg, bot)
+    }
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[3]}`)) {
+        individual.run(msg, bot)
     }
 
     else if (msg.content.startsWith(`${config.prefix}time`,)) {
-        msg.channel.send('esse ano ainda nao esta disponivel, tente novamente em breve')
+        msg.channel.send('ainda nao esta disponivel, volte em breve')
     }
 
 

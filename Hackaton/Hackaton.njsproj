@@ -34,7 +34,10 @@
       <SubType>Code</SubType>
       <Publish>False</Publish>
     </Content>
-    <Content Include="data.js">
+    <Content Include="individual.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="times.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
