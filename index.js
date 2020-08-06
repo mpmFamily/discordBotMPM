@@ -1,42 +1,31 @@
 const config = require('./config/config.json')
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const { MessageEmbed } = require('discord.js');
-const jo = new MessageEmbed()
-    .setImage ('https://i.pinimg.com/originals/47/36/4d/47364d004bdf64f78d736a8cbedde9aa.png')
-    .setTitle ("o melhor")
-    .addField ("o melhor 2", "sim concordo")
 
-client.login(config.token)
-client.on('ready', () => {console.log("to on kk") 
+    client.login(config.token)
+    client.on('ready', () => {console.log("to on kk") 
     client.user.setActivity('fut contra o torneiras', { type: 'WATCHING' })
 })
-client.on('message', ederson => {
-    let mensagem ={"!melhortime":"obviamente eh o corinthians", // acrescentar comandos no bot
-                    "!cleber":"machado",
-                    "!bolsonaro":"VAI 17! VAI 17!",
-                    "salve":"salveado",
-                    "oi":"salve",
+    client.on('message',(ederson) => {
+        
+        if (ederson.content.startsWith(config.prefix)){
+        if (ederson.author.bot) return
 
-                    "!comando":"resposta",
-                    "!comando":"resposta",
-                    "!comando":"resposta",
-                    "!comando":"resposta",
-                    "!comando":"resposta",
-                    "!comando":"resposta",
-                    "!comando":"resposta",
-            }
-if (ederson.author.bot){ // if para o bot não falar sozinho
-    return;
-}
+        const args = ederson.content.split(" ")
+    args.shift()
 
-if (ederson.content.toLowerCase().startsWith("!corinthians")){ // Este comando é uma resposta simples de bot
 
-    ederson.channel.send(jo)
+    const  commandSplited = ederson.content.split(" ")[0]
+    const  command = commandSplited.replace(/^./g,"")
+    command.toLowerCase()
     
-}
 
-if (mensagem[ederson.content.toLowerCase()]) { // Serve para reconhecer os comandos das mensagens acima
-    ederson.channel.send(mensagem[ederson.content.toLowerCase()]);
+    try {
+	    const  robertoCarlos = require(`./comandos/${command}`)
+	    robertoCarlos.run(client, ederson, args) 
     }
-})
+    catch {
+	    ederson.channel.send('comando inválido')
+    } 
+    }
+}) 

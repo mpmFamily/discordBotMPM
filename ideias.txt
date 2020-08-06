@@ -1,3 +1,26 @@
 No  client.user.setActivity('fut contra o torneiras', { type: 'WATCHING' }) irá mostrar os times e o placar no momento atual
 
 Depois que funcionar, fornecer as tabelas em canvas, para facilitar o download da mesma
+
+
+
+    
+    /*let mensagem ={"!melhortime":"obviamente eh o corinthians", // acrescentar comandos no bot
+                    "!cleber":"machado",
+                    "!bolsonaro":"VAI 17! VAI 17!",
+                    "salve":"salveado",
+                    "oi":"salve",
+
+                    "!comando":"resposta",
+                    "!comando":"resposta",
+                    "!comando":"resposta",
+                    "!comando":"resposta",
+                    "!comando":"resposta",
+                    "!comando":"resposta",
+                    "!comando":"resposta",*/
+
+                    /*if (mensagem[ederson.content.toLowerCase()]) { // Serve para reconhecer os comandos das mensagens acima
+    ederson.channel.send(mensagem[ederson.content.toLowerCase()]);
+    }
+}) */
+
