@@ -7,11 +7,13 @@ const anos = ["2020","2019","2018","2017","2016","2015"]
 const serie = ["a","b","A","B"]
 exports.run = (client,ederson, args) => {  
     
-    const url = (`https://www.cbf.com.br/futebol-brasileiro/competicoes/campeonato-brasileiro-serie-${args[0].toLowerCase()}/${args[1]}`)
-    console.log(args)
-    if (args.length === 0) {return ederson.channel.send(`**Tente digitar a série e o ano da tabela que você procura.**\n***Exemplo:*** ºtabela a 2020`)} 
+    if (args.length === 0) {return ederson.channel.send(`**Tente digitar a série e o ano da tabela que você procura.**\n***Exemplo:*** !tabela a 2020`)} 
         if (!anos.includes(args[1])) return ederson.channel.send(`Este ano não é valido, tente entre 2012 e 2020.`)
         if (!serie.includes(args[0])) return ederson.channel.send(`Esta série não é válida, tente a ou b.`)
+        let serielimpa = args[0].toLowerCase()
+    const url = (`https://www.cbf.com.br/futebol-brasileiro/competicoes/campeonato-brasileiro-serie-${serielimpa}/${args[1]}`)
+    console.log(args.length)
+    
         axios.get(url)
         .then(response  => {
         const html = (response.data)
@@ -25,7 +27,7 @@ exports.run = (client,ederson, args) => {
                 nomestimes.push({nome:time})
         }
         embedTimes.setTitle("Campeonato Brasileiro de " +args[1])
-        console.log(nomestimes) 
+        //console.log(nomestimes) 
             for(let i=0;i<=19;i++){
                 embedTimes.addField(`${i+1}º  :arrow_right:  `+nomestimes[i].nome,"‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗")
             }

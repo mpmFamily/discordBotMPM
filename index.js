@@ -18,13 +18,14 @@ const client = new Discord.Client()
     const  commandSplited = ederson.content.split(" ")[0]
     const  command = commandSplited.replace(/^./g,"")
     command.toLowerCase()
-    
+    console.log(command)
 
     try {
 	    const  robertoCarlos = require(`./comandos/${command}`)
 	    robertoCarlos.run(client, ederson, args) 
     }
-    catch {
+    catch(e) {
+        console.log(e)
 	    ederson.channel.send('comando inválido')
     } 
     }
