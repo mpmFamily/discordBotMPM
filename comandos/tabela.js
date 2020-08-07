@@ -20,16 +20,21 @@ exports.run = (client,ederson, args) => {
         const $ /* cheerio */ = cheerio.load(html)
         const embedTimes = new MessageEmbed()
         let tabelatimes = $ (".expand-trigger > td > .hidden-xs")
+        let pontosTimes = $('.expand-trigger > th')
         let nomestimes=[]
+        let valortimes=[]
             for(let i=0;i<=19;i++){
                 const individualtime = (tabelatimes[i].children[0])
                 const time = individualtime.data
                 nomestimes.push({nome:time})
+                const pontotime = (pontosTimes[i].children[0])
+                const ptime = pontotime.data
+                valortimes.push({ponto:ptime})
         }
         embedTimes.setTitle("Campeonato Brasileiro de " +args[1])
         //console.log(nomestimes) 
             for(let i=0;i<=19;i++){
-                embedTimes.addField(`${i+1}º  :arrow_right:  `+nomestimes[i].nome,"‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗")
+        embedTimes.addField(`${i+1}º  :arrow_right:  `+nomestimes[i].nome,`Pontos: **${valortimes[i].ponto}**\nJogos:\nVitórias:\nEmpates:\nDerrotas:\nGols Pró:\nGols Contra:\nSaldo de Gols:\nAproveitamento:\n**‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗**`)
             }
             embedTimes.setColor("#ff0000")
             ederson.channel.send(embedTimes)     
