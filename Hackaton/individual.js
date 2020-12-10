@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 const { MessageEmbed } = require('discord.js');
 const bot = new Discord.Client();
 const url = 'https://www.cbf.com.br/futebol-brasileiro/competicoes/campeonato-brasileiro-serie-a/'
-let nomes = ['flamengo', 'santos', 'palmeiras','gremio','athletico','sao paulo','inter','corinthians','fortaleza','goias','bahia','vasco','atletico','fluminense','botafogo','ceara','cruzeiro','csa','chapeco','avai']
+let nomes = ['flamengo', 'santos', 'palmeiras','gremio','athletico','sao paulo','inter','corinthians','fortaleza','goias','bahia','vasco','atletico','fluminense','botafogo','ceara','cruzeiro','csa','chapecoense','avai']
 
 exports.run = (msg, bot) => {
    
@@ -87,7 +87,7 @@ exports.run = (msg, bot) => {
             msg.channel.send(embedTime)
         })
     }
-    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[4]}`)) {
+    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[4]}`) || msg.content.toLowerCase().startsWith(`!time athletico paranaense`)) {
         axios.get(url + 2019).then(response => {
             const html = (response.data);
             const $ = cheerio.load(html);
@@ -248,7 +248,7 @@ exports.run = (msg, bot) => {
             msg.channel.send(embedTime)
         })
     }
-    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[12]}`)) {
+    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[12]}`) || msg.content.toLowerCase().startsWith(`!time atletico mineiro`)) {
         axios.get(url + 2019).then(response => {
             const html = (response.data);
             const $ = cheerio.load(html);
@@ -368,7 +368,7 @@ exports.run = (msg, bot) => {
             msg.channel.send(embedTime)
         })
     }
-    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[18]}`)) {
+    else if (msg.content.toLowerCase().startsWith(`!time ${nomes[18]}`) || msg.content.toLowerCase().startsWith(`!time chapeco`)) {
         axios.get(url + 2019).then(response => {
             const html = (response.data);
             const $ = cheerio.load(html);

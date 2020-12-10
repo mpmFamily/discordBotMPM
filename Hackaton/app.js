@@ -6,7 +6,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const individual = require('./individual.js')
 let ano = [2019, 2020,2018];
-let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulo', 'inter', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'botafogo', 'ceara', 'cruzeiro', 'csa', 'chapeco', 'avai', 'torneiras', 'tricolor', 'curintia','mengao']
+let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulo', 'inter', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'botafogo', 'ceara', 'cruzeiro', 'csa', 'chapecoense', 'avai', 'torneiras', 'athletico paranaense', 'tricolor', 'curintia','atletico mineiro','chapeco','mengao']
 
 
 bot.login(config.token);
@@ -53,7 +53,7 @@ bot.on('message', msg => {
         times.run(msg, bot);
     }
 
-    for (let i = 0; i <= 24; i++) {
+    for (let i = 0; i <= 27; i++) {
         if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${nomes[i]}`)) {
             individual.run(msg, bot)
         }
