@@ -5,7 +5,6 @@ const config = require('./config/config.json')
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const individual = require('./individual.js')
-const prefix = "!"
 let ano = [2019, 2020,2018];
 let nomes = ['flamengo', 'santos', 'palmeiras', 'gremio', 'athletico', 'sao paulo', 'inter', 'corinthians', 'fortaleza', 'goias', 'bahia', 'vasco', 'atletico', 'fluminense', 'botafogo', 'ceara', 'cruzeiro', 'csa', 'chapeco', 'avai', 'torneiras', 'tricolor', 'curintia','mengao']
 
@@ -18,6 +17,11 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
+    if (msg.content.toLowerCase().startsWith('!testeai')) {
+        msg.reply('coco de rato')
+        msg.channel.send(`coco de ${msg.author}`)
+    }
+
     let responde = {
         "!bot": "to on amigao\n use >> !comandos << para mais informacoes",
         "oi": "oi tudo bem?",
@@ -26,26 +30,26 @@ bot.on('message', msg => {
         "tudo bem": "ngm te pergunto",
         "voce pergunto": "a eh vredade",
         "vc pergunto":"a eh vredade",
-        "!comandos": "!time ano\n!time seu time\n!gay\n",
-        "!help": "!time ano\n!time seu time\n!gay\n",
-        "!ajuda": "!time ano\n!time seu time\n!gay\n",
+        "!comandos": "!tabela ano\n!time seu time\n!gay\n",
+        "!help": "!tabela ano\n!time seu time\n!gay\n",
+        "!ajuda": "!tabela ano\n!time seu time\n!gay\n",
         "!gay": `claro que eh o ${msg.author}`,
         "salve": "salvado pae"
     }
     if (msg.author.bot) { return; }
-
+    
     if (msg.content.toLowerCase().startsWith('!pinto')) {
         msg.channel.send(`seu pinto tem alguns cm`)
         msg.channel.send('comando quebro to triste')
     }
 
-    if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${ano[0]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[0]}`)) {
+    if (msg.content.toLowerCase().startsWith(`${config.prefix}tabela ${ano[0]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}tabela${ano[0]}`)) {
         times.run(msg, bot)
     }
-    else if (msg.content.toLowerCase().startsWith(`${config.prefix}time ${ano[1]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[1]}`)) {
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}tabela ${ano[1]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}tabela${ano[1]}`)) {
         times.run(msg, bot)
     }
-    else if (msg.content.toLowerCase().startsWith(`!time ${ano[2]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}time${ano[2]}`)) {
+    else if (msg.content.toLowerCase().startsWith(`${config.prefix}tabela ${ano[2]}`) || msg.content.toLowerCase().startsWith(`${config.prefix}tabela${ano[2]}`)) {
         times.run(msg, bot);
     }
 
